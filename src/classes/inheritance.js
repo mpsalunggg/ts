@@ -9,12 +9,13 @@ class User {
     }
 }
 class AdminUser extends User {
-    constructor() {
-        super(...arguments);
+    constructor(name, email, age) {
+        super(name, email);
         this.active = false;
+        this.age = age;
     }
 }
 const user = new User("Anonymous", "putra@gmail.com");
-const adminUser = new AdminUser("Untitled", "untitled@gmail.com");
+const adminUser = new AdminUser("Untitled", "untitled@gmail.com", 23);
 console.log(user);
 console.log(adminUser);
