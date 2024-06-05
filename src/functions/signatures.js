@@ -5,6 +5,6 @@ exports.me = {
     name: "Yuhuu",
     age: 20,
     address: "Palu",
-    greet: function (greeting) { return "".concat(greeting, " ").concat(exports.me.name); },
+    greet: (greeting) => `${greeting} ${exports.me.name}`,
 };
 console.log(exports.me.greet("Holaaa"));
