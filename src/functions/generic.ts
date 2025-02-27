@@ -19,3 +19,18 @@ const printFruits: ListFruits<string> = (list) => {
 
 console.log(printFruits(listFruits));
 
+// Generic with constraint array
+
+type HasLength = {
+  length: number;
+};
+
+const logLength = <T extends HasLength>(item: T): void => {
+  console.log(item.length);
+};
+
+logLength(listFruits);
+logLength("Any String");
+// logLength(2); error
+
+logLength({ name: "John", length: 12 });
