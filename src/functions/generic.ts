@@ -66,3 +66,19 @@ let numAndStringObj: NumberAndString = {
   1: "test",
   test: "Test",
 };
+
+// generic keyof partial
+
+type Person = {
+  name: string;
+  age: number;
+};
+
+type PersonPartial = {
+  [K in keyof Person]?: Person[K];
+};
+
+const person: PersonPartial = {
+  name: "Hello",
+  age: 21,
+};
