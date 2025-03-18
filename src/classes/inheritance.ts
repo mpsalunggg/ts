@@ -26,3 +26,25 @@ const adminUser = new AdminUser("Untitled", "untitled@gmail.com", 23);
 
 console.log(user);
 console.log(adminUser);
+
+// Another Classes
+class Book {
+  title: string;
+  author: string;
+  yearPublished?: number;
+  readonly isbn: string;
+
+  constructor(
+    title: string,
+    author: string,
+    isbn: string,
+    yearPublished?: number,
+  ) {
+    this.title = title;
+    this.author = author;
+    if (yearPublished) {
+      this.yearPublished = yearPublished;
+    }
+    this.isbn = isbn;
+  }
+}
