@@ -24,8 +24,8 @@ class AdminUser extends User {
 const user = new User("Anonymous", "putra@gmail.com");
 const adminUser = new AdminUser("Untitled", "untitled@gmail.com", 23);
 
-console.log(user);
-console.log(adminUser);
+// console.log(user);
+// console.log(adminUser);
 
 // Another Classes
 class Book {
@@ -48,3 +48,18 @@ class Book {
     this.isbn = isbn;
   }
 }
+
+const book: Book = new Book("Test", "mps", "ABC123", 2003);
+// console.log(book);
+
+const logBook = ({ isbn, title, author, yearPublished }: Book) => {
+  const dataBook = {
+    isbn: isbn,
+    title: title,
+    author: author,
+    yearPublished: yearPublished,
+  };
+  console.log(dataBook);
+};
+
+logBook(book);
