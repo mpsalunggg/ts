@@ -9,7 +9,7 @@ class Parent {
     this.age = age;
   }
 
-  greet() {
+  greet(): string {
     return `Hello, my name is ${this.name} from ${this.country}`;
   }
 
@@ -22,14 +22,18 @@ class Child extends Parent {
   age: number;
 
   constructor(name: string, country: string, age: number) {
-    super(name, country);
+    super(name, country, age);
     this.age = age;
   }
 
   introduce() {
     return `${super.greet()} and I am ${this.age} years old.`;
   }
+
+  greet(): string {
+    return `testtt`;
+  }
 }
 const child = new Child("Putra", "Indonesia", 25);
 console.log(child.introduce());
-console.log(child.showAge())
+console.log(child.showAge());
