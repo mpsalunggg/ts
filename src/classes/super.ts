@@ -34,6 +34,11 @@ class Child extends Parent {
     return `testtt`;
   }
 }
+
+const parentt = new Parent("mps", "Arab", 20);
 const child = new Child("Putra", "Indonesia", 25);
 console.log(child.introduce());
 console.log(child.showAge());
+
+console.log(parentt.greet());
+console.log(child.greet());
