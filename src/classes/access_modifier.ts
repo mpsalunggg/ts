@@ -1,9 +1,9 @@
 class Animal {
-  public name: string;
-  private age: number;
-  protected email: string;
-
-  constructor(name: string, age: number, email: string) {
+  constructor(
+    public name: string,
+    private age: number,
+    protected email: string,
+  ) {
     this.name = name;
     this.age = age;
     this.email = email;
