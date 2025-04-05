@@ -1,11 +1,15 @@
-class Repository<T extends { id: number }> {
+class Repository<T extends { id: string }> {
   private data: T[] = [];
+
+  static generateId() {
+    return (Math.random() + 1).toString(36).substring(7);
+  }
 
   add(item: T) {
     this.data.push(item);
   }
 
-  getById(id: number): T | undefined {
+  getById(id: string): T | undefined {
     const data = this.data.find((item: T) => item.id === id);
     console.log(data);
     if (data) {
@@ -15,7 +19,7 @@ class Repository<T extends { id: number }> {
     }
   }
 
-  removeById(id: number): void {
+  removeById(id: string): void {
     this.data = this.data.filter((item: T) => item.id === id);
   }
 
@@ -25,7 +29,7 @@ class Repository<T extends { id: number }> {
 }
 
 type Data = {
-  id: number;
+  id: string;
   todo: string;
   desc: string;
 };
@@ -33,10 +37,10 @@ type Data = {
 const repository = new Repository<Data>();
 
 repository.add({
-  id: 1,
+  id: Repository.generateId(),
   todo: "write something",
   desc: "test",
 });
 
 console.log(repository.getAll());
-repository.getById(1);
+// repository.getById(1);
