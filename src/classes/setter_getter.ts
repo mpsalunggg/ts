@@ -1,5 +1,5 @@
 class People {
-  public _age?: number;
+  private _age?: number;
   constructor(
     public firstName: string,
     public lastName: string,
@@ -13,7 +13,15 @@ class People {
     this._age = age;
   }
 
-  public fullname() {
+  public get age() {
+    if (this._age === undefined) {
+      throw Error("Age is undefined");
+    }
+
+    return this._age;
+  }
+
+  public get fullname() {
     return this.firstName + " " + this.lastName;
   }
 }
@@ -21,5 +29,5 @@ class People {
 const person1: People = new People("Putra", "Satria");
 
 person1.age = 21;
-console.log(person1.fullname());
+console.log(person1.fullname);
 console.log(person1.age);
