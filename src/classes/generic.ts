@@ -1,4 +1,8 @@
-class Repository<T extends { id: string }> {
+type Identifier = {
+  id: string;
+};
+
+class Repository<T extends Identifier> {
   private data: T[] = [];
 
   static generateId() {
@@ -28,13 +32,19 @@ class Repository<T extends { id: string }> {
   }
 }
 
-type Data = {
+type Data = Identifier & {
   id: string;
   todo: string;
   desc: string;
 };
 
+type Books = Identifier & {
+  name: string;
+  author: string;
+};
+
 const repository = new Repository<Data>();
+const books = new Repository<Books>();
 
 repository.add({
   id: Repository.generateId(),
@@ -44,3 +54,11 @@ repository.add({
 
 console.log(repository.getAll());
 // repository.getById(1);
+
+books.add({
+  id: Repository.generateId(),
+  name: "write something",
+  author: "tes",
+});
+
+console.log(books.getAll())
