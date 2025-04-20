@@ -51,21 +51,38 @@ function User(name, email) {
 }
 
 User.prototype.login = function () {
-  console.log(this.name, 'Has logged in');
+  console.log(this.name, "Has logged in");
 };
 
 User.prototype.logout = function () {
-  console.log(this.name, 'Has logged out');
+  console.log(this.name, "Has logged out");
 };
 
 User.prototype.addPoint = function () {
   this.points++;
-  console.log('total points', this.points);
+  console.log("total points", this.points);
 };
 
-const user = new User('John', 'john@email.com');
+function AdminUser(name, email, report) {
+  User.apply(this, [name, email]);
+  this.report = report;
+}
 
-user.login()
-user.addPoint()
-user.logout()
-user.addPoint()
+AdminUser.prototype = Object.create(User.prototype);
+
+AdminUser.prototype.updateReport = function (newReport) {
+  this.report = newReport;
+};
+
+const user = new User("John", "john@email.com");
+
+const adminUser = new AdminUser("Mps", "mps@gmail.com", 21);
+
+console.log(user);
+
+console.log(adminUser);
+// user.login();
+// user.addPoint();
+// user.logout();
+// user.addPoint()
+// user.prototype.addPoint();
