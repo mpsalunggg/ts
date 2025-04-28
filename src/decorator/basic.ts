@@ -1,44 +1,26 @@
-import { json } from "stream/consumers";
+function methodLogger(originalMethod: any, _context: any) {
+  console.log("Decorator Invoked");
+ 
+  function replacementMethod(this: any, ...args: any[]) {
+    console.log(args);
+    console.log(this);
+    console.log("Invocation Started");
+    const result = originalMethod.call(this, ...args);
+    console.log("Invocation ended");
+    console.log(result)
+    return result;
+  }
+  return replacementMethod;
+}
 
-const methodLogger = (originalMethod: any, context: any) => {
-  console.log(originalMethod);
-  console.log(context);
-};
+class Yuhuu {
+  constructor(public name: string) {}
 
-const classDecorator = (target: any, context: any) => {
-  console.log(String(target));
-  console.log(context);
-};
-
-@classDecorator
-class DecoratorExample {
   @methodLogger
-  greet() {
-    console.log("hellooo broo");
+  greet(greeting: string) {
+    console.log(` ${greeting}, ${this.name}`);
   }
 }
 
-console.log("======");
-const Logger = (constructor: Function) => {
-  console.log(String(constructor.name));
-};
-
-@Logger
-class Yuhu {
-  name = "putra";
-}
-
-console.log("=======");
-function LogProperty(value: undefined, context: ClassFieldDecoratorContext) {
-  console.log(
-    `Property "${String(context.name)}" didesain untuk:`,
-    context.kind,
-  );
-  console.log(value),
-  console.log(context)
-}
-
-class Product {
-  @LogProperty
-  price: number = 100;
-}
+let userr: Yuhuu = new Yuhuu("John");
+userr.greet("Hello");
