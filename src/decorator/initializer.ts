@@ -1,11 +1,12 @@
-function methodLogger2(originalMethod: any, context: any) {
-  function replacementMethod(this: any, ...args: any[]) {
-    console.log("Invocation Started");
-    const result = originalMethod.call(this, ...args);
-    console.log("Invocation ended");
-    return result;
-  }
-  return replacementMethod;
+function methodLogger2(log: string) {
+  return function (originalMethod: any, context: any) {
+    return function (this: any, ...args: any[]) {
+      console.log(log + "Invocation Started");
+      const result = originalMethod.call(this, ...args);
+      console.log(log + "Invocation ended");
+      return result;
+    };
+  };
 }
 
 function bound(_originalMethod: any, context: any) {
@@ -29,7 +30,7 @@ class Peoplee {
   }
 
   @bound
-  @methodLogger2
+  @methodLogger2("log :")
   greet(greeting: string) {
     console.dir(this);
     console.log(` ${greeting}, ${this.name}`);
