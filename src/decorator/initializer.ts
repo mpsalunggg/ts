@@ -1,6 +1,12 @@
-function methodLogger2(log: string) {
-  return function (originalMethod: any, context: any) {
-    return function (this: any, ...args: any[]) {
+function methodLogger2<This, Args extends any[], Return>(log: string) {
+  return function (
+    originalMethod: (this: This, ...args: Args) => Return,
+    _context: ClassMethodDecoratorContext<
+      This,
+      (this: This, ...args: Args) => Return
+    >,
+  ) {
+    return function (this: This, ...args: Args) {
       console.log(log + "Invocation Started");
       const result = originalMethod.call(this, ...args);
       console.log(log + "Invocation ended");
@@ -9,7 +15,10 @@ function methodLogger2(log: string) {
   };
 }
 
-function bound(_originalMethod: any, context: any) {
+function bound(
+  _originalMethod: Function,
+  context: ClassMethodDecoratorContext,
+) {
   const methodName = context.name;
   if (context.private) {
     throw new Error(
@@ -30,7 +39,7 @@ class Peoplee {
   }
 
   @bound
-  @methodLogger2("log :")
+  @methodLogger2<Peoplee, [string], void>("log :")
   greet(greeting: string) {
     console.dir(this);
     console.log(` ${greeting}, ${this.name}`);
