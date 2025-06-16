@@ -49,5 +49,7 @@ class Peoplee {
 let peopleee: Peoplee = new Peoplee("John");
 peopleee.greet("Hello");
 
+console.log("==========================");
+
 const greet = peopleee.greet;
 greet("Morning");
