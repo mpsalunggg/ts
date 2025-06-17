@@ -1,9 +1,10 @@
-function FirstDecorator(constructor: Function) {
-  console.log("Decorator Invoked");
-  console.log(constructor);
+function FirstDecorator(title: string) {
+  return (constructor: Function) => {
+    console.log(title + ": Decorator Invoked");
+    console.log(constructor);
+  };
 }
-
-@FirstDecorator
+@FirstDecorator("Testttt")
 class Aircraft {
   constructor(
     public _aircraftModel: string,
