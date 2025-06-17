@@ -18,6 +18,6 @@ function LogProperty(value: undefined, context: ClassFieldDecoratorContext) {
 }
 
 class Product {
-  @LogProperty
+  // @LogProperty
   price: number = 100;
 }

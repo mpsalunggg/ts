@@ -17,7 +17,7 @@ type Post = {
 };
 
 class Author {
-  @(addDefaultPost<Author, Post[]>)
+  // @addDefaultPost
   public posts: Post[] = [];
 
   constructor(public name: string) {}

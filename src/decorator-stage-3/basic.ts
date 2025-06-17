@@ -16,7 +16,7 @@ function methodLogger(originalMethod: any, _context: any) {
 class Yuhuu {
   constructor(public name: string) {}
 
-  @methodLogger
+  // @methodLogger
   greet(greeting: string) {
     console.log(` ${greeting}, ${this.name}`);
   }

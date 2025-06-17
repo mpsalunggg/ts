@@ -38,8 +38,8 @@ class Peoplee {
     // this.greet = this.greet.bind(this);
   }
 
-  @bound
-  @methodLogger2<Peoplee, [string], void>("log :")
+  // @bound
+  // @methodLogger2<Peoplee, [string], void>("log :")
   greet(greeting: string) {
     console.dir(this);
     console.log(` ${greeting}, ${this.name}`);

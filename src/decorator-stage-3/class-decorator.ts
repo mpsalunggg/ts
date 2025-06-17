@@ -17,11 +17,10 @@ interface Greetable {
   greet?: (greeting: string) => void;
 }
 
-@addGreetMethod
+// @addGreetMethod
 class Authors implements Greetable {
   constructor(public name: string) {}
 }
 
 const authors = new Authors("Mark");
-console.log(author);
- 
+console.log(authors);
