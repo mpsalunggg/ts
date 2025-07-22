@@ -5,6 +5,7 @@ enum Manufacturers {
 
 interface AircraftInterface {
   _aircraftModel: string;
+  pilotName: () => void;
   prototype?: any;
   origin?: string;
   manufacturer?: string;
@@ -25,6 +26,17 @@ function AircraftManufacturer(manufacturer: Manufacturers) {
   };
 }
 
+function MethodDecorator(
+  classPrototype: Object,
+  methodName: string,
+  descriptor: PropertyDescriptor
+) {
+  console.log(classPrototype);
+  console.log(methodName);
+  console.log(descriptor);
+  descriptor.writable = true;
+}
+
 @AircraftManufacturer(Manufacturers.airbus)
 class Airplane implements AircraftInterface {
   constructor(
@@ -34,6 +46,7 @@ class Airplane implements AircraftInterface {
     console.log("Aircraft Class Instantiated");
   }
 
+  @MethodDecorator
   public pilotName() {
     console.log(this.pilot);
   }
@@ -46,3 +59,7 @@ class Airplane implements AircraftInterface {
 const airplane: AircraftInterface = new Airplane("Airbus A380", "John");
 
 console.log(airplane);
+
+airplane.pilotName = () => console.log('Function Changed');
+
+airplane.pilotName();
