@@ -31,10 +31,25 @@ function MethodDecorator(
   methodName: string,
   descriptor: PropertyDescriptor
 ) {
+  console.log("=======Method Decorator")
   console.log(classPrototype);
   console.log(methodName);
   console.log(descriptor);
   descriptor.writable = true;
+  console.log("=======Method Decorator")
+}
+
+function StaticMethodDecorator(
+  constructor: Object,
+  methodName: string,
+  descriptor: PropertyDescriptor
+) {
+  console.log("=======Static Method Decorator")
+  console.log(constructor);
+  console.log(methodName);
+  console.log(descriptor);
+  descriptor.writable = true;
+  console.log("=======Static Method Decorator")
 }
 
 @AircraftManufacturer(Manufacturers.airbus)
@@ -44,6 +59,11 @@ class Airplane implements AircraftInterface {
     private pilot: string,
   ) {
     console.log("Aircraft Class Instantiated");
+  }
+
+  @StaticMethodDecorator
+  public static seatCount(): void {
+    console.log('150 Seats');
   }
 
   @MethodDecorator
