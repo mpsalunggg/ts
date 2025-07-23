@@ -39,6 +39,16 @@ function MethodDecorator(
   console.log("=======Method Decorator")
 }
 
+function ParamaterDecorator(
+  classPrototype: Object,
+  methodName: string,
+  index: number
+){
+  console.log(classPrototype)
+  console.log(methodName)
+  console.log(index)
+}
+
 function StaticMethodDecorator(
   constructor: Object,
   methodName: string,
@@ -52,13 +62,34 @@ function StaticMethodDecorator(
   console.log("=======Static Method Decorator")
 }
 
+function PropertyDecorator(
+  classPrototype: Object,
+  propertyName: string
+) {
+  console.log("=======Property Decorator")
+  console.log(classPrototype);
+  console.log(propertyName);
+  console.log("=======Property Decorator")
+}
+
+function AccessorDecorator(
+  classPrototype: Object,
+  accessorName: string,
+  propertyDescriptor: PropertyDescriptor
+) {
+  console.log("=======Accessor Decorator")
+  console.log(classPrototype);
+  console.log(accessorName);
+  console.log(propertyDescriptor);
+  console.log("=======Accessor Decorator")
+}
+
 @AircraftManufacturer(Manufacturers.airbus)
 class Airplane implements AircraftInterface {
-  constructor(
-    public _aircraftModel: string,
-    private pilot: string,
-  ) {
-    console.log("Aircraft Class Instantiated");
+  @PropertyDecorator
+  public _aircraftModel: string;
+  constructor(aircraftModel: string, private pilot: string) {
+    this._aircraftModel = aircraftModel;
   }
 
   @StaticMethodDecorator
@@ -71,6 +102,7 @@ class Airplane implements AircraftInterface {
     console.log(this.pilot);
   }
 
+  @AccessorDecorator
   public get aircraftModel() {
     return this._aircraftModel;
   }
