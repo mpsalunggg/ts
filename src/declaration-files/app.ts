@@ -1,5 +1,5 @@
 import { add, calculate } from "./calculator.js";
-import { createUserProfile, User } from "./user.js";
+import { AdminUser, createUserProfile, User } from "./user.js";
 
 // without declaration files the arguments are inferred as any
 // When declaration file is created then types are defined properly and inferred properly
@@ -25,3 +25,7 @@ const updatedUser: User.UserProfile = User.updateUser(1, {
 
 console.log(newUser);
 console.log(updatedUser);
+
+const userAdmin = new AdminUser();
+userAdmin.createUser("Bob");
+userAdmin.showGreeting(); // Outputs: "Very special greetings to our VIP, Bob!"

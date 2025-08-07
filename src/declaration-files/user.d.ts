@@ -16,3 +16,17 @@ export namespace User {
   function createUser(id: number, name: string): UserProfile;
   function updateUser(id: number, user: UserProfile): UserProfile;
 }
+
+export declare class RealUser {
+  greeting: string;
+  user: { name: string; greeting: string };
+
+  constructor(greeting: string);
+  createUser(name: string): { name: string; greeting: string };
+  showGreeting(): void;
+}
+
+export declare class AdminUser extends RealUser {
+  constructor();
+  showGreeting(): void;
+}
