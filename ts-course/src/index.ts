@@ -1,5 +1,3 @@
-
-
 type Members = {
   name: string;
   email: string;
