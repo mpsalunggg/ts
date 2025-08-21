@@ -16,14 +16,14 @@ export class TasksController {
   public handlePostTasks() {
     console.log(this.userController.getUser())
     return {
-      title: 'This is a title',
+      title: 'This is a title post',
       description: 'Task description',
     }
   }
 
   public handlePatchTasks() {
     return {
-      title: 'This is a title',
+      title: 'This is a title patch',
       description: 'Task description',
     }
   }
