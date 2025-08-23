@@ -1,30 +1,44 @@
+import { Request, Response } from 'express'
 import { injectable, inject } from 'inversify'
 import { UserController } from '../user/user.controller'
+import { IPartialTaskWithId, ITask } from './task.interface'
+import { Task } from './task.schema'
+import { Document } from 'mongoose'
 
 export class TasksController {
   constructor(@inject(UserController) private userController: UserController) {}
 
-  public handleGetTasks() {
-    return [
-      {
-        title: 'This is a title',
-        description: 'Task description',
-      },
-    ]
+  public async handleGetTasks(req: Request, res: Response) {
+    const tasks: ITask[] = await Task.find()
+    return tasks
   }
 
-  public handlePostTasks() {
-    console.log(this.userController.getUser())
-    return {
-      title: 'This is a title post',
-      description: 'Task description',
-    }
+  public async handlePostTasks(req: Request<{}, {}, ITask>, res: Response) {
+    const task: Document<unknown, any, ITask> = new Task(req.body)
+
+    await task.save()
+
+    return task
   }
 
-  public handlePatchTasks() {
-    return {
-      title: 'This is a title patch',
-      description: 'Task description',
+  public async handlePatchTasks(
+    req: Request<{}, {}, IPartialTaskWithId>,
+    res: Response
+  ) {
+    const task = await Task.findById(req.body['_id'])
+
+    if (task) {
+      task.title = req.body.title ? req.body.title : task.title
+      task.description = req.body.description
+        ? req.body.description
+        : task.description
+      task.dueDate = req.body.dueDate ? req.body.dueDate : task.dueDate
+      task.priority = req.body.priority ? req.body.priority : task.priority
+      task.status = req.body.status ? req.body.status : task.status
+
+      await task.save()
     }
+
+    return task
   }
 }

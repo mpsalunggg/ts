@@ -1,1 +1,9 @@
 POST http://localhost:3001/tasks/create
+Content-Type: application/json
+{
+  "title": "Beli Jajan",
+  "description": "Beli Cimol", 
+  "status": "completed",
+  "priority": "low",
+  "dueDate": "2025-01-01T12:00:00Z"
+}
