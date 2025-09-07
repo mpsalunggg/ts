@@ -4,20 +4,22 @@ import { UserController } from '../user/user.controller'
 import { IPartialTaskWithId, ITask } from './task.interface'
 import { Task } from './task.schema'
 import { Document } from 'mongoose'
+import { TaskService } from './task.service'
 
 export class TasksController {
-  constructor(@inject(UserController) private userController: UserController) {}
+  constructor(
+    @inject(UserController) private userController: UserController,
+    @inject(TaskService) private taskService: TaskService
+  ) {}
 
   public async handleGetTasks(req: Request, res: Response) {
-    const tasks: ITask[] = await Task.find()
+    const tasks: ITask[] = await this.taskService.findAll()
     return tasks
   }
 
   public async handlePostTasks(req: Request<{}, {}, ITask>, res: Response) {
-    const task: Document<unknown, any, ITask> = new Task(req.body)
-
-    await task.save()
-
+    const task: Document<unknown, any, ITask> =
+      await this.taskService.createTask(req.body)
     return task
   }
 
@@ -25,7 +27,7 @@ export class TasksController {
     req: Request<{}, {}, IPartialTaskWithId>,
     res: Response
   ) {
-    const task = await Task.findById(req.body['_id'])
+    const task = await this.taskService.findById(req.body['_id'])
 
     if (task) {
       task.title = req.body.title ? req.body.title : task.title
