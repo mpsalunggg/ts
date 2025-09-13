@@ -5,11 +5,14 @@ import { IPartialTaskWithId, ITask } from './task.interface'
 import { Task } from './task.schema'
 import { Document } from 'mongoose'
 import { TaskService } from './task.service'
+import { matchedData } from 'express-validator'
+import { UpdateTaskProvider } from './provider/updateTask.provider'
 
 export class TasksController {
   constructor(
     @inject(UserController) private userController: UserController,
-    @inject(TaskService) private taskService: TaskService
+    @inject(TaskService) private taskService: TaskService,
+    @inject(UpdateTaskProvider) private UpdateTaskProvider: UpdateTaskProvider
   ) {}
 
   public async handleGetTasks(req: Request, res: Response) {
@@ -26,21 +29,13 @@ export class TasksController {
   public async handlePatchTasks(
     req: Request<{}, {}, IPartialTaskWithId>,
     res: Response
-  ) {
-    const task = await this.taskService.findById(req.body['_id'])
+  ): Promise<Document> {
+    const validatedData: IPartialTaskWithId = matchedData(req)
 
-    if (task) {
-      task.title = req.body.title ? req.body.title : task.title
-      task.description = req.body.description
-        ? req.body.description
-        : task.description
-      task.dueDate = req.body.dueDate ? req.body.dueDate : task.dueDate
-      task.priority = req.body.priority ? req.body.priority : task.priority
-      task.status = req.body.status ? req.body.status : task.status
-
-      await task.save()
+    try {
+      return await this.UpdateTaskProvider.updateTask(validatedData)
+    } catch (error: any) {
+      throw new Error(error)
     }
-
-    return task
   }
 }

@@ -6,6 +6,7 @@ import { createTaskValidator } from './validator/createTask.validator'
 import { validationResult } from 'express-validator'
 import { getTasksValidator } from './validator/getTasks.validator'
 import { StatusCodes } from 'http-status-codes'
+import { updateTaskValidator } from './validator/updateTask.validator'
 
 @injectable()
 export class TasksRouter {
@@ -49,12 +50,19 @@ export class TasksRouter {
 
     this.router.patch(
       '/update',
+      updateTaskValidator,
       async (req: Request<{}, {}, IPartialTaskWithId>, res: Response) => {
-        const updatedTask = await this.tasksController.handlePatchTasks(
-          req,
-          res
-        )
-        res.json(updatedTask)
+        const result = validationResult(req)
+
+        if (result.isEmpty()) {
+          let updatedTask = await this.tasksController.handlePatchTasks(
+            req,
+            res
+          )
+          res.status(StatusCodes.OK).json(updatedTask)
+        } else {
+          res.status(StatusCodes.BAD_REQUEST).json(result.array())
+        }
       }
     )
   }
