@@ -9,3 +9,9 @@ export interface ITask {
 export interface IPartialTaskWithId extends Partial<ITask> {
   _id: string
 }
+
+export interface ITaskPagination {
+  limit: number
+  page: number
+  order: 'asc' | 'dsc'
+}

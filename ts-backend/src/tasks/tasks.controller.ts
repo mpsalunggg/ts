@@ -7,23 +7,39 @@ import { Document } from 'mongoose'
 import { TaskService } from './task.service'
 import { matchedData } from 'express-validator'
 import { UpdateTaskProvider } from './provider/updateTask.provider'
+import { GetTasksProvider } from './provider/getTasks.provider'
 
 export class TasksController {
   constructor(
     @inject(UserController) private userController: UserController,
     @inject(TaskService) private taskService: TaskService,
-    @inject(UpdateTaskProvider) private UpdateTaskProvider: UpdateTaskProvider
+    @inject(UpdateTaskProvider) private UpdateTaskProvider: UpdateTaskProvider,
+    @inject(GetTasksProvider) private getTasksProvider: GetTasksProvider
   ) {}
 
-  public async handleGetTasks(req: Request, res: Response) {
-    const tasks: ITask[] = await this.taskService.findAll()
-    return tasks
+  public async handleGetTasks(req: Request, res: Response): Promise<ITask[]> {
+    const validatedData = matchedData(req)
+
+    try {
+      const tasks: ITask[] = await this.getTasksProvider.findAllTasks(
+        validatedData
+      )
+      return tasks
+    } catch (error: any) {
+      throw new Error(error)
+    }
   }
 
-  public async handlePostTasks(req: Request<{}, {}, ITask>, res: Response) {
-    const task: Document<unknown, any, ITask> =
-      await this.taskService.createTask(req.body)
-    return task
+  public async handlePostTasks(
+    req: Request<{}, {}, ITask>,
+    res: Response
+  ): Promise<Document> {
+    const validatedData: ITask = matchedData(req)
+    try {
+      return await this.taskService.createTask(validatedData)
+    } catch (error: any) {
+      throw new Error(error)
+    }
   }
 
   public async handlePatchTasks(
