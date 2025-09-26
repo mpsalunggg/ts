@@ -1,7 +1,6 @@
 POST http://localhost:3001/tasks/create
 Content-Type: application/json
 {
-  "title": "Jajan",
   "description": "Beli Cimol", 
   "status": "completed",
   "priority": "low",

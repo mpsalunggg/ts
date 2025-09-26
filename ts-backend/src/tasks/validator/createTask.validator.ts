@@ -3,9 +3,12 @@ import { checkSchema } from 'express-validator'
 export const createTaskValidator = checkSchema({
   title: {
     in: ['body'],
-    notEmpty: true,
-    errorMessage: 'Title is required',
-    isString: true,
+    notEmpty: {
+      errorMessage: 'Title is required',
+    },
+    isString: {
+      errorMessage: 'Title must be a string',
+    },
     isLength: {
       options: {
         max: 100,
