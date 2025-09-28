@@ -3,12 +3,16 @@ import { addRoutes } from './src/config/routes.config'
 import mongoose from 'mongoose'
 import * as dotenv from 'dotenv'
 import { responseFormatter } from './src/middleware/responseFormatter'
+import cors, { CorsOptions } from 'cors'
 
 dotenv.config()
-
+let corsOptions: CorsOptions = {
+  origin: 'http://example.com',
+}
 const app: Express = express()
 const port = process.env.PORT
 
+app.use(cors())
 app.use(express.json())
 app.use(responseFormatter)
 app.get('/', (_req: Request, res: Response) => {
