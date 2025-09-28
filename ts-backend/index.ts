@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express'
 import { addRoutes } from './src/config/routes.config'
 import mongoose from 'mongoose'
 import * as dotenv from 'dotenv'
+import { responseFormatter } from './src/middleware/responseFormatter'
 
 dotenv.config()
 
@@ -9,6 +10,7 @@ const app: Express = express()
 const port = process.env.PORT
 
 app.use(express.json())
+app.use(responseFormatter)
 app.get('/', (_req: Request, res: Response) => {
   res.send('Express + TypeScript Server testing')
 })
