@@ -1,7 +1,7 @@
 import express, { Request, Response, Router } from 'express'
 import { TasksController } from './tasks.controller'
 import { injectable, inject } from 'inversify'
-import { IPartialTaskWithId, ITask } from './task.interface'
+import { ITask, IPartialTaskWithId } from './task.interface'
 import { createTaskValidator } from './validator/createTask.validator'
 import { validationResult } from 'express-validator'
 import { getTasksValidator } from './validator/getTasks.validator'
@@ -20,6 +20,7 @@ export class TasksRouter {
   }
 
   private initializeRoutes() {
+    // Get Route
     this.router.get(
       '/',
       getTasksValidator,
@@ -27,13 +28,14 @@ export class TasksRouter {
         const result = validationResult(req)
         if (result.isEmpty()) {
           const allTasks = await this.tasksController.handleGetTasks(req, res)
-          res.status(StatusCodes.OK).json(allTasks)
+          res.json(allTasks)
         } else {
           res.status(StatusCodes.BAD_REQUEST).json(result.array())
         }
       }
     )
 
+    // Post Route
     this.router.post(
       '/create',
       createTaskValidator,
@@ -48,6 +50,7 @@ export class TasksRouter {
       }
     )
 
+    // Patch Route
     this.router.patch(
       '/update',
       updateTaskValidator,
