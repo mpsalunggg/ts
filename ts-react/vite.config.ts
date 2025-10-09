@@ -11,4 +11,19 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'router-vendor': ['react-router'],
+          'ui-vendor': ['lucide-react', 'sonner'],
+          'form-vendor': ['react-hook-form', 'zod', '@hookform/resolvers'],
+          'query-vendor': ['@tanstack/react-query'],
+          'date-vendor': ['date-fns', 'react-day-picker'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
 })
