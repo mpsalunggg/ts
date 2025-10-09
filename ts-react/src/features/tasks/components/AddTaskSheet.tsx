@@ -81,8 +81,10 @@ export function AddTaskSheet() {
         <Button
           size="icon"
           className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg"
+          aria-label="Add new task"
         >
           <PlusIcon className="h-6 w-6" />
+          <span className="sr-only">Add new task</span>
         </Button>
       </SheetTrigger>
       <SheetContent side="bottom" className="h-[85vh]">

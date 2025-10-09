@@ -62,10 +62,10 @@ export function TaskCard({ task }: TaskCardProps) {
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className={`font-semibold text-lg ${isCompleted ? 'line-through text-muted-foreground' : ''}`}>
+            <h2 className={`font-semibold text-lg ${isCompleted ? 'line-through text-muted-foreground' : ''}`}>
               {task.title}
-            </h3>
-            <Flag className={`h-4 w-4 ${priorityColors[task.priority]}`} />
+            </h2>
+            <Flag className={`h-4 w-4 ${priorityColors[task.priority]}`} aria-label={`${priorityLabels[task.priority]} priority`} />
           </div>
           <p className={`text-sm mb-3 ${isCompleted ? 'text-muted-foreground' : 'text-muted-foreground'}`}>
             {task.description}
@@ -113,7 +113,7 @@ export function TaskCard({ task }: TaskCardProps) {
               variant="outline"
               onClick={handleComplete}
               disabled={updateTask.isPending}
-              className="border-green-500 text-green-600 hover:bg-green-50"
+              className="border-green-600 text-green-700 hover:bg-green-50 hover:text-green-800"
             >
               <CheckCircle2 className="h-4 w-4 mr-1" />
               Complete
