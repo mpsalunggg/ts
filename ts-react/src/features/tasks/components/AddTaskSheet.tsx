@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { format } from 'date-fns'
+import { toast } from 'sonner'
 import {
   Sheet,
   SheetContent,
@@ -68,10 +69,12 @@ export function AddTaskSheet() {
   const onSubmit = async (values: FormValues) => {
     try {
       await createTask.mutateAsync(values)
+      toast.success('Task created successfully!')
       form.reset()
       setOpen(false)
     } catch (error) {
       console.error('Failed to create task:', error)
+      toast.error('Failed to create task')
     }
   }
 

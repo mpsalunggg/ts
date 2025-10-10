@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import {
   useTasks,
   TaskList,
@@ -15,6 +15,23 @@ const Tasks = () => {
     currentPage,
     ITEMS_PER_PAGE
   )
+  
+  const tasks = useMemo(() => data?.tasks || [], [data?.tasks])
+  const meta = useMemo(
+    () =>
+      data?.meta || {
+        totalTasks: 0,
+        completedTasks: 0,
+        todoTasks: 0,
+        inProgressTasks: 0,
+      },
+    [data?.meta]
+  )
+  
+  const handlePageChange = useCallback((page: number) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
 
   if (isLoading) {
     return (
@@ -36,18 +53,6 @@ const Tasks = () => {
     )
   }
 
-  const tasks = data?.tasks || []
-  const meta = data?.meta || {
-    totalTasks: 0,
-    completedTasks: 0,
-    todoTasks: 0,
-    inProgressTasks: 0,
-  }
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
 
   return (
     <div className="container mx-auto px-4 py-8">

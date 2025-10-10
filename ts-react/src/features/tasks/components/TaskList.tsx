@@ -16,7 +16,7 @@ export function TaskList({ tasks }: TaskListProps) {
       </div>
     );
   }
-  console.log("taksss", tasks)
+
   return (
     <div className="grid gap-4">
       {tasks.map((task) => (
