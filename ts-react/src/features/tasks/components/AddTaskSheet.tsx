@@ -44,8 +44,8 @@ import { cn } from '../../../lib/utils'
 const formSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100),
   description: z.string().min(1, 'Description is required').max(500),
-  status: z.nativeEnum(TaskStatus),
-  priority: z.nativeEnum(TaskPriority),
+  status: z.enum(TaskStatus),
+  priority: z.enum(TaskPriority),
   dueDate: z.date({ message: 'Due date is required' }),
 })
 

@@ -36,7 +36,7 @@ export class TaskApiRepository implements ITaskRepository {
     }
     const result: ApiResponse<Task[]> = await response.json();
 
-    const tasks = result.data.map((task: any) => ({
+    const tasks = result.data.map((task: Task) => ({
       ...task,
       dueDate: new Date(task.dueDate),
     }));
